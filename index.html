@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400&display=swap" rel="stylesheet">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .contentbox {
+        background: white;
+        border-radius: 20px;
+        width: 60%;
+        height: 70%;
+        box-shadow: 0px 0px 15px #888888;
+        padding: 30px;
+      }
+      h1, p, button {
+        font-family: Roboto;
+        font-weight: 100;
+        margin: 0px;
+        font-size: 16pt;
+      }
+      h1 {
+        text-align: center;
+        font-size: 50px;
+        margin-bottom: 10px;
+        font-weight: 100;
+      }
+      textarea {
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: #EEEEEE;
+        border-radius: 20px;
+        height: calc(100% - 135px);
+        margin: 0px;
+        text-align: left;
+        font-family: Roboto;
+        font-weight: 300;
+        font-size: 11pt;
+        padding: 20px;
+        margin-bottom: 20px;
+        resize: none;
+      }
+      button {
+        background-color: DodgerBlue;
+        width: 100%;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        height: 60px;
+        cursor: grab;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class='contentbox'>
+      <h1>Not Like Other Sentences</h1>
+      <textarea id="edgytextarea" placeholder="Write text formatted in sentences here..."></textarea>
+      <button id='edgybutton'>Make Sentence Edgy</button>
+    </div>
+    <script>
+      window.onerror = function(message, source, line, col, error) {
+        alert(line + ':' + col + ': ' + message);
+      }
+    </script>
+    <script>
+      var edgybutton = document.getElementById('edgybutton');
+      var edgytextarea = document.getElementById('edgytextarea');
+
+      function shufflearray(arr) {
+        for (var i = 0; i < arr.length; i++) {
+          var rand = Math.round(Math.random() * (arr.length - 1));
+          var a = arr[i];
+          var b = arr[rand];
+          arr[i] = b;
+          arr[rand] = a;
+        }
+        return arr;
+      }
+
+      function advancedsplit(str, seps) {
+        var segments = [{ text: "", sep: "" }];
+        for (var i = 0; i < str.length; i++) {
+          var char = str[i];
+          var eq = false;
+          for (var sep = 0; sep < seps.length; sep++) {
+            if (char == seps[sep]) {
+              eq = true;
+              break;
+            }
+          }
+          if (eq) {
+            segments[segments.length - 1].sep = char;
+            segments.push({ text: "", sep: "" });
+          } else {
+            segments[segments.length - 1].text += char;
+          }
+        }
+        return segments;
+      }
+
+      edgybutton.addEventListener('click', function() {
+        var unedgytext = edgytextarea.value;
+        var edgytext = "";
+        var sentences = advancedsplit(unedgytext, ['.', '?']);
+        for (var si = 0; si < sentences.length; si++) {
+          var sentence = sentences[si].text.trim();
+          var words = sentence.split(' ');
+          var shuffled = shufflearray(words);
+          for (var wi = 0; wi < shuffled.length; wi++) {
+            var word = shuffled[wi];
+            if (wi == shuffled.length - 1) {
+              edgytext += word + sentences[si].sep + ' ';
+            } else {
+              edgytext += word + " ";
+            }
+          }
+        }
+        edgytextarea.value = edgytext;
+      });
+    </script>
+  </body>
+</html>
