@@ -105,7 +105,7 @@
       edgybutton.addEventListener('click', function() {
         var unedgytext = edgytextarea.value;
         var edgytext = "";
-        var sentences = advancedsplit(unedgytext, ['.', '?']);
+        var sentences = advancedsplit(unedgytext, ['.', '?', '!']);
         for (var si = 0; si < sentences.length; si++) {
           var sentence = sentences[si].text.trim();
           var words = sentence.split(' ');
