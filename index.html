@@ -102,8 +102,7 @@
         return segments;
       }
 
-      edgybutton.addEventListener('click', function() {
-        var unedgytext = edgytextarea.value;
+      function edgify(unedgytext) {
         var edgytext = "";
         var sentences = advancedsplit(unedgytext, ['.', '?', '!']);
         for (var si = 0; si < sentences.length; si++) {
@@ -119,7 +118,12 @@
             }
           }
         }
-        edgytextarea.value = edgytext;
+        return edgytext;
+      }
+
+      edgybutton.addEventListener('click', function() {
+        var unedgytext = edgytextarea.value;
+        edgytextarea.value = edgify(unedgytext);
       });
     </script>
   </body>
